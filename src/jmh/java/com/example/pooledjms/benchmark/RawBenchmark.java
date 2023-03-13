@@ -1,5 +1,6 @@
-package com.example.pooledbench;
+package com.example.pooledjms.benchmark;
 
+import com.example.pooledjms.AbstractBenchmarkRunner;
 import org.openjdk.jmh.annotations.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,8 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RawBenchmark extends AbstractBenchmarkRunner {
     @Benchmark
     public void run() {
-        for (int i = 0; i < size; i++) {
-            jmsTemplate.send("test", session -> session.createTextMessage("hello"));
-        }
+        queueSender.send(size);
     }
 }

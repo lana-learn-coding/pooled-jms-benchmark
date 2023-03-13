@@ -1,4 +1,4 @@
-package com.example.pooledbench;
+package com.example.pooledjms;
 
 import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Setup;
@@ -11,18 +11,18 @@ import org.springframework.jms.core.JmsTemplate;
 
 public abstract class AbstractBenchmarkRunner {
 
-    public int size = 20;
+    public int size = 1_000;
 
     protected ConfigurableApplicationContext context;
 
-    protected JmsTemplate jmsTemplate;
+    protected QueueSender queueSender;
 
     @Setup(Level.Iteration)
     public void setup() {
         final var sa = new SpringApplication(this.getClass());
         sa.setEnvironment(environment());
         context = sa.run();
-        jmsTemplate = context.getBean(JmsTemplate.class);
+        queueSender = new QueueSender(context.getBean(JmsTemplate.class));
     }
 
     @TearDown(Level.Iteration)
