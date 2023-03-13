@@ -4,5 +4,5 @@ benchmark pooled vs non-pooled jms
 
 Run the benchmark
 ```shell
-./gradlew test
+./gradlew clean jmh
 ```

@@ -39,3 +39,4 @@ out/
 *.txt
 jmh-result.json
 jmh-result.text
+*.hprof

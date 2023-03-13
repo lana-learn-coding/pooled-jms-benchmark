@@ -1,30 +1,15 @@
 package com.example.pooledbench;
 
-import com.example.testsupport.AbstractBenchmark;
 import jakarta.jms.JMSException;
 import jakarta.jms.Session;
 import org.openjdk.jmh.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
 @State(Scope.Benchmark)
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
-@DirtiesContext
-public class RawBatchBenchmarkTest extends AbstractBenchmark {
-    private static JmsTemplate jmsTemplate;
-
-    @Autowired
-    void setJmsTemplate(JmsTemplate jmsTemplate) {
-        RawBatchBenchmarkTest.jmsTemplate = jmsTemplate;
-    }
-
+@SpringBootApplication
+public class RawBatchBenchmark extends AbstractBenchmarkRunner {
     @Benchmark
     public void run() throws JMSException {
         try (var connection = Objects.requireNonNull(jmsTemplate.getConnectionFactory()).createConnection();
