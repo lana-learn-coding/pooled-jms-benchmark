@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     jmh 'org.springframework.boot:spring-boot-starter-artemis'
-    jmh 'org.messaginghub:pooled-jms:3.1.0'
+    jmh 'org.messaginghub:pooled-jms'
 
     jmh 'org.apache.activemq:artemis-jms-server:2.28.0'
 }
