@@ -11,7 +11,7 @@ import org.springframework.jms.core.JmsTemplate;
 
 public abstract class AbstractBenchmarkRunner {
 
-    public int size = 1_000;
+    public int size = 5_000;
 
     protected ConfigurableApplicationContext context;
 
