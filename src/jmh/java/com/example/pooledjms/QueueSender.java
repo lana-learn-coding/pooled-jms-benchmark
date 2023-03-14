@@ -27,10 +27,10 @@ public class QueueSender {
 
     public void sendBatched(String destination, int size) {
         try (var connection = Objects.requireNonNull(template.getConnectionFactory()).createConnection();
-             var session = connection.createSession(true, Session.SESSION_TRANSACTED)) {
+             var session = connection.createSession(true, Session.SESSION_TRANSACTED);
+             var producer = session.createProducer(session.createQueue(destination))) {
             for (int i = 0; i < size; i++) {
-                session.createProducer(session.createQueue(destination))
-                        .send(session.createTextMessage(message));
+                producer.send(session.createTextMessage(message));
             }
             session.commit();
         } catch (JMSException e) {
