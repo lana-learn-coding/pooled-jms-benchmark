@@ -8,7 +8,7 @@ Run the benchmark.
 ./gradlew clean jmh
 ```
 
-## Results
+## Results (Master)
 
 Benchmark results "on my machine" with in-vm artemis.
 

@@ -1,9 +1,9 @@
 package com.example.pooledjms;
 
-import jakarta.jms.JMSException;
-import jakarta.jms.Session;
 import org.springframework.jms.core.JmsTemplate;
 
+import javax.jms.JMSException;
+import javax.jms.Session;
 import java.util.Objects;
 
 public class QueueSender {
