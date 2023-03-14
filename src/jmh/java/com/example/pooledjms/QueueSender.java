@@ -7,24 +7,30 @@ import org.springframework.jms.core.JmsTemplate;
 import java.util.Objects;
 
 public class QueueSender {
+    private static final String message = """
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            """;
+
     private final JmsTemplate template;
 
     public QueueSender(JmsTemplate template) {
         this.template = template;
     }
 
-    public void send(int size) {
+    public void send(String destination, int size) {
         for (int i = 0; i < size; i++) {
-            template.send("test", session -> session.createTextMessage("test"));
+            template.send(destination, session -> session.createTextMessage(message));
         }
     }
 
-    public void sendBatched(int size) {
+    public void sendBatched(String destination, int size) {
         try (var connection = Objects.requireNonNull(template.getConnectionFactory()).createConnection();
              var session = connection.createSession(true, Session.SESSION_TRANSACTED)) {
             for (int i = 0; i < size; i++) {
-                session.createProducer(session.createQueue("test"))
-                        .send(session.createTextMessage("test"));
+                session.createProducer(session.createQueue(destination))
+                        .send(session.createTextMessage(message));
             }
             session.commit();
         } catch (JMSException e) {
